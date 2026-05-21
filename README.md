@@ -2,7 +2,7 @@
 > A Lua script that generates JSON table of comic volumes, and then parses it into an HTML file written in [Va2](https://github.com/reineimi/va2) frontend library.
 
 > [!TIP]
-> Guide on how to run Lua files on Windows: <a href='https://github.com/reineimi/lua-on-windows' target='_blank'>click here</a>.
+> Guide on how to run Lua files on Windows <a href='https://github.com/reineimi/lua-on-windows' target='_blank'>can be viewed here</a>.
 
 ## Usage
 1. Download an offline version of the preferred comic book;

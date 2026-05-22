@@ -29,8 +29,10 @@
 3.	Only after that, run the script, and then open
 	the generated index.html file in your browser.
 ```
-
 > [!NOTE]
+> Volumes under 10 must include a `0` at the start, same goes for chapters under 100, e.g: `v09`, `009`, `099`
+
+> [!WARNING]
 > Be wary of the fact that the opened HTML documents may require one or several gigabytes of RAM.
 
 > [!TIP]

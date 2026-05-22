@@ -1,29 +1,43 @@
 # comic-viewer
-> A Lua script that generates JSON table of comic volumes, and then parses it into an HTML file written in [Va2](https://github.com/reineimi/va2) frontend library.
+> A Lua script that generates JSON tables of comic volumes & chapters, and then parses them into an HTML file written in [Va2](https://github.com/reineimi/va2) frontend library.
 
 > [!TIP]
 > Guide on how to run Lua files on Windows <a href='https://github.com/reineimi/lua-on-windows' target='_blank'>can be viewed here</a>.
 
 ## Usage
-1. Download an offline version of the preferred comic book;
-2. Unpack it and put `volume_viewer.lua` in the same directory;
-3. Sort volumes of the book into directories with the corresponding names, like this:
 ```
-v01
-v02
-v03 ...
+1.	Put this script in the directory of the
+	downloaded comics you want to view.
+
+2.	Rename the directories following the rules below:
+
+	Directory tree before changes:
+		> My Comic Book
+			> Volume 1 - The Beginning
+			> Volume 2 - The Progress
+			> Chapter 12
+			> Chapter 13
+
+	After changes:
+		> My_Comic_Book
+			> v01
+			> v02
+			> 012
+			> 013
+			cover.jpg
+
+3.	Only after that, run the script, and then open
+	the generated index.html file in your browser.
 ```
-4. Run the script and specify the <ins>**title**</ins> and <ins>**total amount of volumes**</ins> of the book;
-5. Open the generated `.html` file in your browser.
 
 > [!NOTE]
-> Be wary of the fact that the opened HTML document may require one or several gigabytes of RAM.
+> Be wary of the fact that the opened HTML documents may require one or several gigabytes of RAM.
 
 > [!TIP]
 > You can change the colors in the **Settings** menu, which is accessible in the **context menu** that appears on **right click/long tap**.
 
 ## Example structure (Windows)
-<img width="629" height="554" alt="image" src="https://github.com/user-attachments/assets/f386130e-f7ec-4d9b-9822-2630a0592f5b" />
+<img width="543" height="341" alt="image" src="https://github.com/user-attachments/assets/4d718f30-e0eb-49e1-8813-d2e7446ddfec" />
 
 ## Preview (Desktop)
 *Volumes*

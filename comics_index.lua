@@ -3,20 +3,23 @@ print([[How to use:
 	downloaded comics you want to view.
 2.	Rename the directories following the rules below:
 	Directory tree before changes:
-		My Comic Book
-			Volume 1 - The Beginning
-			Volume 2 - The Progress
-			Chapter 12
-			Chapter 13
+		> My Comic Book
+			> Volume 1 - The Beginning
+			> Volume 2 - The Progress
+			> Chapter 12
+			> Chapter 13
 	After changes:
-		My_Comic_Book
-			v01
-			v02
-			012
-			013
+		> My_Comic_Book
+			> v01
+			> v02
+			> 012
+			> 013
 			cover.jpg
 3.	Only after that, run the script, and then open
 	the generated index.html file in your browser.
+
+(Note: volumes under 10 must include a 0 at the start,
+same goes for chapters under 100, e.g: v09, 009, 099)
 ]])
 
 -- Get book titles
@@ -254,7 +257,9 @@ local function run(entry)
 			}, 'Gallery');
 			vol_body.dataset.uid = 'vol'+(vol+1);
 			loop(files, (i,v)=>{
-				const path = 'v0'+(vol+1)+'/'+v;
+				let num = vol+1;
+				if (num < 10) { num = '0'+num; }
+				const path = 'v'+num+'/'+v;
 				// Volume cover
 				if (i === 0) {
 					mk('Volumes', `<div class='w1-4 p1' onclick="sel.vol(${vol+1})"><img src="${path}" class='w imfit br'><p class='tc fs1-1 fw7'>Volume ${vol+1}</p></div>`);
@@ -270,7 +275,9 @@ local function run(entry)
 			}, 'Gallery');
 			ch_body.dataset.uid = 'vol'+(ch_start+ch);
 			loop(files, (i,v)=>{
-				const path = '0'+(ch_start+ch)+'/'+v;
+				let num = ch_start+ch;
+				if (num < 100) { num = '0'+num; }
+				const path = num+'/'+v;
 				// Chapter cover
 				if (i === 0) {
 					mk('Volumes', `<div class='w1-4 p1' onclick="sel.ch(${ch_start+ch})"><img src="${path}" class='w imfit br'><p class='tc fs1-1 fw7'>Chapter ${ch_start+ch}</p></div>`);

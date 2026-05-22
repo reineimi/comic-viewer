@@ -153,6 +153,7 @@ local function run(entry)
 	let page_now = 0;
 	let pages_total = 0;
 	let vol_ch = 'Volume';
+	const alias = "]]..alias..[[";
 	const ch_start = ]]..(ch_start or 0)..[[;
 
 	sel.vol = function(number) {
@@ -167,7 +168,7 @@ local function run(entry)
 		show('Gallery', 'vol'+number);
 		emi('title_nav').innerHTML = vol_ch+number;
 		pages_total = volumes.volumes[number-1].length;
-		va2.data.pagesTotal = pages_total;
+		va2.data[alias].pagesTotal = pages_total;
 		emi('Main').scrollTo({top:0,behaviour:'smooth'});
 	}
 
@@ -183,7 +184,7 @@ local function run(entry)
 		show('Gallery', 'vol'+number);
 		emi('title_nav').innerHTML = vol_ch+number;
 		pages_total = volumes.chapters[number-ch_start].length;
-		va2.data.pagesTotal = pages_total;
+		va2.data[alias].pagesTotal = pages_total;
 		emi('Main').scrollTo({top:0,behaviour:'smooth'});
 	}
 
@@ -201,13 +202,14 @@ local function run(entry)
 		emi('title_nav').innerHTML = vol_ch+n_vol+', Page '+n_page;
 		vol_now = n_vol;
 		page_now = n_page;
-		va2.data.vol = n_vol;
-		va2.data.page = n_page;
+		va2.data[alias].vol = n_vol;
+		va2.data[alias].page = n_page;
 		emi('Main').scrollTo({top:0,behaviour:'smooth'});
 	}
 
 	window.addEventListener('load', ()=>{
 		va2.data.accentColor = 'crimson'; init();
+		va2.data[alias] = {};
 		mk('va2ctxtItems',
 			"<a href='../index.html'>Back to Library</a>",
 			"<p class='cred' onclick='storage.wipe()'>Clear data</p>")
@@ -228,8 +230,8 @@ local function run(entry)
 				page_now = 1;
 			}
 			emi('title_nav').innerHTML = vol_ch+vol_now+', Page '+page_now;
-			va2.data.vol = vol_now;
-			va2.data.page = page_now;
+			va2.data[alias].vol = vol_now;
+			va2.data[alias].page = page_now;
 			emi('Main').scrollTo({top:0,behaviour:'smooth'});
 		}
 		emi('p_next').onclick = ()=>{
@@ -245,8 +247,8 @@ local function run(entry)
 				emi('viewer_img2').src = '';
 			}
 			emi('title_nav').innerHTML = vol_ch+vol_now+', Page '+page_now;
-			va2.data.vol = vol_now;
-			va2.data.page = page_now;
+			va2.data[alias].vol = vol_now;
+			va2.data[alias].page = page_now;
 			emi('Main').scrollTo({top:0,behaviour:'smooth'});
 		}
 
@@ -288,10 +290,10 @@ local function run(entry)
 
 		// Load progress
 		va2.f.loadData();
-		if (va2.data.page) {
-			vol_now = va2.data.vol || 0;
-			page_now = va2.data.page || 0;
-			pages_total = va2.data.pagesTotal || 0;
+		if (va2.data[alias].page) {
+			vol_now = va2.data[alias].vol || 0;
+			page_now = va2.data[alias].page || 0;
+			pages_total = va2.data[alias].pagesTotal || 0;
 			sel.page(vol_now, page_now);
 		}
 	});
@@ -299,8 +301,8 @@ local function run(entry)
 </head>
 <body class='ts-all fh scroll'>
 	<div id='Header' class='w px1 pt1'>
-		<div class='w th_windowFg shadowS b2px bbgi br py1 px2 f'>
-			<h1 class='w1-6-3 py1 m h2 fw9 ls1 lh1 c'>]]..title..[[ <x data-uid='title_nav' class='fc fs1'></x></h1>
+		<div class='w th_windowFg shadowS b2px bbgi br px1 f'>
+			<h1 class='w1-6-3 py1 pl1 m h2 fw9 ls1 lh1 c'>]]..title..[[ <x data-uid='title_nav' class='fc fs1'></x></h1>
 			<div class='w1-6-3 py1 f tc fs1-4 lh08 nosel'>
 				<div class='m mr0 f g1 px05-g py1-g end c br1-g b2px-g pt-g'>
 					<div class='wr5 bbgi bgic-hov' onclick='fullscreen()'><p class='gicon'>fit_screen</p><br><x class='fs07'>Fullscreen</x></div>
@@ -332,10 +334,10 @@ local html_entries = {}
 for _,e in ipairs(entries) do
 	run(e)
 	table.insert(html_entries, string.format([[
-		<div class='w1-4 p1 tc'>
-			<div class='p1 fgc br b1px bbgi bgic-hov fw5'>
+		<div class='w1-4 p05 tc'>
+			<div class='p1 bgic br b1px bfgi bgc-hov bc-hov fw5'>
 				<a href='%s/%s.html' class='fill z2 pt'></a>
-				<img src='%s/cover.jpg' class='w br' alt='cover' />
+				<img src='%s/cover.jpg' class='w brS' alt='cover' />
 				<p class='fs1-3 fw8 c'>%s</p>
 				<p>Volumes: %s</p>
 				<p>Chapters: %s</p>
@@ -359,11 +361,11 @@ f:write([[
 	});
 	</script>
 </head>
-<body class='ts-all f'>
-	<header class='bgc'>
-		<h1 class='w py2 tc fw8 fontCode bB'><c>Library entries</c> (]]..#html_entries..[[)</h1>
+<body class='ts-all f p1 pt0 bgc'>
+	<header class='f m px3 bgn bn' style='width:unset'>
+		<h1 class='m w tc fs1-6 fw8 fontCode py2 px3 fgc br'><c>Library entries</c> (]]..#html_entries..[[)</h1>
 	</header>
-	<main id='Main' class='m center mx0-g scroll'>
+	<main id='Main' class='m center mx0-g scroll br fgc p05 b1px bbgi'>
 ]]..table.concat(html_entries, '\n')..'\n'..[[
 	</main>
 </body>

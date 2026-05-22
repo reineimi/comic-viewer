@@ -16,10 +16,10 @@ v03 ...
 4. Run the script and specify the <ins>**title**</ins> and <ins>**total amount of volumes**</ins> of the book;
 5. Open the generated `.html` file in your browser.
 
-> [!TIP]
+> [!NOTE]
 > Be wary of the fact that the opened HTML document may require one or several gigabytes of RAM.
 
-> [!NOTE]
+> [!TIP]
 > You can change the colors in the **Settings** menu, which is accessible in the **context menu** that appears on **right click/long tap**.
 
 ## Example structure (Windows)

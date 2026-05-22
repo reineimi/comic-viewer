@@ -1,4 +1,4 @@
-# comic-viewer
+# comics-index
 > A Lua script that generates JSON tables of comic volumes & chapters, and then parses them into an HTML file written in [Va2](https://github.com/reineimi/va2) frontend library.
 
 > [!TIP]

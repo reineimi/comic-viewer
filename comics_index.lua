@@ -152,7 +152,7 @@ local function run(entry)
 	let vol_now = 0;
 	let page_now = 0;
 	let pages_total = 0;
-	let vol_ch = 'Volume';
+	let vol_ch = 'Volume ';
 	const alias = "]]..alias..[[";
 	const ch_start = ]]..(ch_start or 0)..[[;
 

@@ -51,7 +51,7 @@
 *Pages*
 <img width="2560" height="1440" alt="image" src="https://github.com/user-attachments/assets/91a446da-bec3-495a-95c1-21d934ffdfc3" />
 
-## Preview (Mobile)
+## Preview (Mobile) (old GUI)
 <img width="412" height="915" alt="image" src="https://github.com/user-attachments/assets/5a2b2c54-2bba-41ea-8148-e27fb50b6319" />
 <img width="412" height="915" alt="image" src="https://github.com/user-attachments/assets/951bbfee-1929-40ae-97b5-d18465929b6c" />
 <img width="412" height="915" alt="image" src="https://github.com/user-attachments/assets/0b4f2009-63f4-4130-b9f3-0acb63205d46" />

@@ -211,11 +211,15 @@ local function run(entry)
 		va2.data.accentColor = 'crimson'; init();
 		va2.data[alias] = {};
 		mk('va2ctxtItems',
-			"<a href='../index.html'>Back to Library</a>",
-			"<p class='cred' onclick='storage.wipe()'>Clear data</p>")
+			`<p onclick="va2.f.saveData(); notify('Progress saved!', 'green cwhite', {silent:1})"><gicon>beenhere</gicon> Bookmark</p>`,
+			`<p onclick="hide('Volumes','Viewer'); show('Gallery')"><gicon>photo_library</gicon> Gallery</p>`,
+			`<p onclick="show('Volumes'); hide('Viewer','Gallery'); wipe('title_nav')"><gicon>book_2</gicon> Volumes</p>`,
+			"<a href='../index.html'><gicon>arrow_back_ios</gicon> Back to Library</a>",
+			"<p class='cred' onclick='storage.wipe()'><gicon>delete</gicon> Clear data</p>");
+		hshow('Header', 'Menu');
 
 		// Viewer scroll logic
-		emi('p_prev').onclick = ()=>{
+		function page_prev() {
 			if (page_now > 1) {
 				page_now -= 2;
 			}
@@ -234,7 +238,7 @@ local function run(entry)
 			va2.data[alias].page = page_now;
 			emi('Main').scrollTo({top:0,behaviour:'smooth'});
 		}
-		emi('p_next').onclick = ()=>{
+		function page_next() {
 			if (page_now < (pages_total-1)) {
 				page_now += 2;
 			}
@@ -251,6 +255,15 @@ local function run(entry)
 			va2.data[alias].page = page_now;
 			emi('Main').scrollTo({top:0,behaviour:'smooth'});
 		}
+		emi('p_prev').onclick = page_prev;
+		emi('p_next').onclick = page_next;
+		document.addEventListener('keydown', (e)=>{
+			if (e.keyCode===37) {
+				page_prev();
+			} else if (e.keyCode===39) {
+				page_next();
+			}
+		});
 
 		// Generate volumes
 		loop(volumes.volumes, (vol,files)=>{
@@ -300,20 +313,21 @@ local function run(entry)
 	</script>
 </head>
 <body class='ts-all fh scroll'>
-	<div id='Header' class='w px1 pt1'>
-		<div class='w th_windowFg shadowS b2px bbgi br px1 f'>
-			<h1 class='w1-6-3 py1 pl1 m h2 fw9 ls1 lh1 c'>]]..title..[[ <x data-uid='title_nav' class='fc fs1'></x></h1>
-			<div class='w1-6-3 py1 f tc fs1-4 lh08 nosel'>
-				<div class='m mr0 f g1 px05-g py1-g end c br1-g b2px-g pt-g'>
-					<div class='wr5 bbgi bgic-hov' onclick='fullscreen()'><p class='gicon'>fit_screen</p><br><x class='fs07'>Fullscreen</x></div>
-					<div class='wr5 bbgi bgic-hov' onclick="va2.f.saveData(); notify('Progress saved!', 'green cwhite', {silent:1})"><p class='gicon'>beenhere</p><br><x class='fs07'>Bookmark</x></div>
-					<div class='wr5 bbgi bgic-hov' onclick="show('Volumes'); hide('Viewer','Gallery'); wipe('title_nav')"><p class='gicon'>book_2</p><br><x class='fs07'>Volumes</x></div>
-					<div class='wr5 bbgi bgic-hov' onclick="hide('Volumes','Viewer'); show('Gallery')"><p class='gicon'>photo_library</p><br><x class='fs07'>Gallery</x></div>
-				</div>
+	<div data-uid='Header' class='w f p1 bB bfgi'>
+		<div class='w fv'>
+			<div class='h fs2 pt f'>
+				<p data-uid='Menu_btn' class='m gicon p1 br1 b1px bbgi fgc bgic-hov c-hov' onclick="tshow('Menu')">menu</p>
 			</div>
+			<h1 class='f1 p1 m h2 fw9 ls1 lh12 fs1-6 c tc'>]]..title..[[ <x data-uid='title_nav' class='fc fs1'></x></h1>
+		</div>
+		<div data-uid='Menu' class='w pt1 f jcc tc fs1-4 lh08 nosel hide ani03 ani-slideFromR g1 px05-g py1-g br1-g b1px-g bbgi-g fgc-g pt-g'>
+			<div class='wr5 bgic-hov c-hov' onclick='href("../index.html")'><p class='gicon'>newsstand</p><br><x class='fs07'>Library</x></div>
+			<div class='wr5 bgic-hov c-hov' onclick="show('Volumes'); hide('Viewer','Gallery'); wipe('title_nav')"><p class='gicon'>book_2</p><br><x class='fs07'>Volumes</x></div>
+			<div class='wr5 bgic-hov c-hov' onclick="hide('Volumes','Viewer'); show('Gallery')"><p class='gicon'>photo_library</p><br><x class='fs07'>Gallery</x></div>
+			<div class='wr5 bgic-hov c-hov' onclick="va2.f.saveData(); notify('Progress saved!', 'green cwhite', {silent:1})"><p class='gicon'>beenhere</p><br><x class='fs07'>Bookmark</x></div>
 		</div>
 	</div>
-	<main id='Main' class='w f1 scroll p1 f nosel'>
+	<main id='Main' class='h w f1 p1 f nosel'>
 		<div id='Volumes' class='w f start'></div>
 		<div id='Viewer' class='m f hide'>
 			<img data-uid='viewer_img' class='m h-m w-m imfit'>
@@ -335,7 +349,7 @@ for _,e in ipairs(entries) do
 	run(e)
 	table.insert(html_entries, string.format([[
 		<div class='w1-4 p05 tc'>
-			<div class='p1 bgic br b1px bfgi bgc-hov bc-hov fw5'>
+			<div class='p1 bgic br b1px bfgi bgc-hov bc-hov fw5 ts07'>
 				<a href='%s/%s.html' class='fill z2 pt'></a>
 				<img src='%s/cover.jpg' class='w brS' alt='cover' />
 				<p class='fs1-3 fw8 c'>%s</p>

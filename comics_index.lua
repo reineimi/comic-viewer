@@ -216,7 +216,6 @@ local function run(entry)
 			`<p onclick="show('Volumes'); hide('Viewer','Gallery'); wipe('title_nav')"><gicon>book_2</gicon> Volumes</p>`,
 			"<a href='../index.html'><gicon>arrow_back_ios</gicon> Back to Library</a>",
 			"<p class='cred' onclick='storage.wipe()'><gicon>delete</gicon> Clear data</p>");
-		hshow('Header', 'Menu');
 
 		// Viewer scroll logic
 		function page_prev() {
